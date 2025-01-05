@@ -23,9 +23,9 @@ function obterCartaAleatoria() {
   do {
     aux = Math.floor(Math.random() * 52);
   } while (!checarCartaValida(deckCartas[aux]));
-  
+
   cartasIndisponiveis.push(deckCartas[aux]);
-  return aux;
+  return deckCartas[aux];
 }
 
 function checarCartaValida(carta) {
@@ -38,3 +38,33 @@ function checarCartaValida(carta) {
   }
   return true;
 }
+
+function Player(nome, cartasMao = [], pontos = 0){
+  this.nome = nome;
+  this.cartasMao = cartasMao;
+  this.pontos = pontos;
+}
+
+Player.prototype.addCarta = function() {
+  this.cartasMao.push(obterCartaAleatoria());
+}
+
+Player.prototype.pontuarMao = function() {
+  let auxSoma = 0;
+  this.pontos = this.cartasMao.forEach(carta => {
+    let auxValor;
+
+    if(typeof carta.valor != 'number'){
+      auxValor = 10;
+      auxSoma += auxValor;
+      return;
+    }
+
+    auxSoma += carta.valor;
+  })
+
+  return auxSoma;
+}
+
+let player = new Player('Gabriel');
+let crupie = new Player('Mesa');
