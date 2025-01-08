@@ -60,3 +60,58 @@ h6 {
 #__next {
   isolation: isolate;
 }
+body {
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(21, 95, 21);
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+  height: inherit;
+}
+.dealer-side,
+.player-side {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dealer-side {
+  flex-grow: 1;
+  background-color: #ff525255;
+}
+.player-side {
+  flex-grow: 1;
+  background-color: #5252ff55;
+}
+.card-body {
+  display: grid;
+  grid-template-rows: 1fr 3fr 1fr;
+
+  position: relative;
+
+  width: 100px;
+  height: 160px;
+
+  background-color: wheat;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin-left: -45px;
+  padding: 6px 12px;
+  transition: all 100ms;
+}
+.card-body:hover {
+  transform: translate(0px, -50px);
+}
+.card-rank,
+.rank-inverted {
+}
+.card-rank {
+  grid-row: 1;
+}
+.rank-inverted {
+  grid-row: 3;
+  justify-self: end;
+  transform: scale(1, -1) scale(-1, 1);
+}

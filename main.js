@@ -56,7 +56,8 @@ Player.prototype.pontos = function () {
   let aux = 0;
   let filtrarAses = this.cartasMao.filter((carta) => carta.valor === "A"); //Cria Array contendo Áses do baralho
 
-  this.cartasMao.forEach((carta) => { //Adiciona o valor de cara carta;
+  this.cartasMao.forEach((carta) => {
+    //Adiciona o valor de cara carta;
     aux +=
       typeof carta.valor !== "number" && carta.valor !== "A" //Se não for número e não for Ás. Adicione 10
         ? 10
@@ -65,7 +66,8 @@ Player.prototype.pontos = function () {
         : carta.valor; // Sendo do tipo número, adicione o valor
   });
 
-  if (this.cartasMao.find((carta) => carta.valor === "A")) {// Se o jogador tiver Ás na mão
+  if (this.cartasMao.find((carta) => carta.valor === "A")) {
+    // Se o jogador tiver Ás na mão
     for (let i = 0; i < filtrarAses.length; i++) {
       if (aux > 21) {
         aux -= 10; //Retire 10 pontos sempre que o valor da mão for ultrapassar 21. Tornando o valor do Ás em 1
@@ -77,3 +79,31 @@ Player.prototype.pontos = function () {
 
 let player = new Player("Gabriel");
 let crupie = new Player("Mesa");
+
+//        DOM       //
+const botaoComprar = document.querySelector(".btn-buyCard");
+
+const ladoJogador = document.querySelector(".player-side");
+
+botaoComprar.addEventListener("click", () => {
+  player.addCarta();
+
+  let ultimaCartaComprada = player.cartasMao[player.cartasMao.length - 1];
+  console.log(ultimaCartaComprada.valor);
+
+  const cartaFundo = document.createElement("div");
+  cartaFundo.classList.add("card-body");
+
+  const cartaRank = document.createElement("span");
+  cartaRank.classList.add('card-rank')
+
+  const cartaRankInvertido = document.createElement('div');
+  cartaRankInvertido.classList.add('rank-inverted')
+
+  cartaRankInvertido.textContent = cartaRank.textContent = `${ultimaCartaComprada.valor} ${ultimaCartaComprada.naipe}`;
+
+
+
+  cartaFundo.append(cartaRank, cartaRankInvertido);
+  ladoJogador.append(cartaFundo);
+});
