@@ -1,4 +1,5 @@
-const valorCartas = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
+// const valorCartas = ["A", "A", "A", 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
+const valorCartas = ["A", "A", "A", 4, 5, 6, 7, 8, 9, 10];
 const naipeCartas = ["♦️", "♠️", "♥️", "♣️"];
 
 const deckCartas = [];
@@ -21,10 +22,13 @@ const criarCartas = (function () {
 function obterCartaAleatoria() {
   let aux;
   do {
-    aux = Math.floor(Math.random() * 52);
+    aux = Math.floor(Math.random() * deckCartas.length);
   } while (!checarCartaValida(deckCartas[aux]));
 
   cartasIndisponiveis.push(deckCartas[aux]);
+
+  console.log(deckCartas[aux]);
+
   return deckCartas[aux];
 }
 
@@ -39,32 +43,37 @@ function checarCartaValida(carta) {
   return true;
 }
 
-function Player(nome, cartasMao = [], pontos = 0){
+function Player(nome, cartasMao = []) {
   this.nome = nome;
   this.cartasMao = cartasMao;
-  this.pontos = pontos;
 }
 
-Player.prototype.addCarta = function() {
+Player.prototype.addCarta = function () {
   this.cartasMao.push(obterCartaAleatoria());
-}
+};
 
-Player.prototype.pontuarMao = function() {
-  let auxSoma = 0;
-  this.pontos = this.cartasMao.forEach(carta => {
-    let auxValor;
+Player.prototype.pontos = function () {
+  let aux = 0;
+  let filtrarAses = this.cartasMao.filter((carta) => carta.valor === "A"); //Cria Array contendo Áses do baralho
 
-    if(typeof carta.valor != 'number'){
-      auxValor = 10;
-      auxSoma += auxValor;
-      return;
+  this.cartasMao.forEach((carta) => { //Adiciona o valor de cara carta;
+    aux +=
+      typeof carta.valor !== "number" && carta.valor !== "A" //Se não for número e não for Ás. Adicione 10
+        ? 10
+        : carta.valor === "A" //Se for Ás, adicione 11
+        ? 11
+        : carta.valor; // Sendo do tipo número, adicione o valor
+  });
+
+  if (this.cartasMao.find((carta) => carta.valor === "A")) {// Se o jogador tiver Ás na mão
+    for (let i = 0; i < filtrarAses.length; i++) {
+      if (aux > 21) {
+        aux -= 10; //Retire 10 pontos sempre que o valor da mão for ultrapassar 21. Tornando o valor do Ás em 1
+      }
     }
+  }
+  return aux;
+};
 
-    auxSoma += carta.valor;
-  })
-
-  return auxSoma;
-}
-
-let player = new Player('Gabriel');
-let crupie = new Player('Mesa');
+let player = new Player("Gabriel");
+let crupie = new Player("Mesa");
