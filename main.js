@@ -84,32 +84,37 @@ let crupie = new Player("Mesa");
 const botaoComprar = document.querySelector(".btn-buyCard");
 
 const ladoJogador = document.querySelector(".player-side");
+const cartaContainer = document.querySelector(".cards-container");
+const mostrarPontosJogador = document.querySelector(".display-points");
 
 botaoComprar.addEventListener("click", () => {
-  
   player.addCarta();
 
   let ultimaCartaComprada = player.cartasMao[player.cartasMao.length - 1];
   console.log(ultimaCartaComprada.valor);
 
-  const checarNaipe = (ultimaCartaComprada.naipe === '♣️' || ultimaCartaComprada.naipe === '♠️') ? 'black-suit' : 'red-suit';
+  const checarNaipe =
+    ultimaCartaComprada.naipe === "♣️" || ultimaCartaComprada.naipe === "♠️"
+      ? "black-suit"
+      : "red-suit";
 
   const cartaFundo = document.createElement("div");
   cartaFundo.classList.add("card-body");
 
   const cartaRank = document.createElement("span");
-  cartaRank.classList.add('card-rank')
+  cartaRank.classList.add("card-rank");
 
+  const cartaRankInvertido = document.createElement("div");
+  cartaRankInvertido.classList.add("rank-inverted");
 
-
-  const cartaRankInvertido = document.createElement('div');
-  cartaRankInvertido.classList.add('rank-inverted')
-
-  cartaRankInvertido.textContent = cartaRank.textContent = `${ultimaCartaComprada.valor} ${ultimaCartaComprada.naipe}`;
+  cartaRankInvertido.textContent =
+    cartaRank.textContent = `${ultimaCartaComprada.valor} ${ultimaCartaComprada.naipe}`;
 
   cartaRank.classList.add(checarNaipe);
   cartaRankInvertido.classList.add(checarNaipe);
 
   cartaFundo.append(cartaRank, cartaRankInvertido);
-  ladoJogador.append(cartaFundo);
+  cartaContainer.append(cartaFundo);
+
+  mostrarPontosJogador.textContent = player.pontos();
 });

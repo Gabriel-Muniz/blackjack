@@ -84,6 +84,8 @@ body {
 .player-side {
   flex-grow: 1;
   background-color: #5252ff55;
+
+  flex-direction: column;
 }
 .card-body {
   display: grid;
@@ -117,4 +119,14 @@ body {
 }
 .red-suit {
   color: red;
+}
+.cards-container {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+}
+.display-points {
+  font-weight: bold;
+  font-size: 30px;
+  color: white;
 }
