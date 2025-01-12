@@ -80,12 +80,17 @@ Player.prototype.pontos = function () {
 let player = new Player("Gabriel");
 let crupie = new Player("Mesa");
 
+const atualizarDisplay = (jogador) => {
+  const mostrarPontosJogador = document.querySelector(".display-points");
+
+  mostrarPontosJogador.textContent = jogador.pontos();
+}
+
 //        DOM       //
 const botaoComprar = document.querySelector(".btn-buyCard");
 
 const ladoJogador = document.querySelector(".player-side");
 const cartaContainer = document.querySelector(".cards-container");
-const mostrarPontosJogador = document.querySelector(".display-points");
 
 botaoComprar.addEventListener("click", () => {
   player.addCarta();
@@ -116,5 +121,5 @@ botaoComprar.addEventListener("click", () => {
   cartaFundo.append(cartaRank, cartaRankInvertido);
   cartaContainer.append(cartaFundo);
 
-  mostrarPontosJogador.textContent = player.pontos();
+  atualizarDisplay(player);
 });
