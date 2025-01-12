@@ -84,15 +84,9 @@ const atualizarDisplay = (jogador) => {
   const mostrarPontosJogador = document.querySelector(".display-points");
 
   mostrarPontosJogador.textContent = jogador.pontos();
-}
+};
 
-//        DOM       //
-const botaoComprar = document.querySelector(".btn-buyCard");
-
-const ladoJogador = document.querySelector(".player-side");
-const cartaContainer = document.querySelector(".cards-container");
-
-botaoComprar.addEventListener("click", () => {
+const mostrarCartasJogador = () => {
   player.addCarta();
 
   let ultimaCartaComprada = player.cartasMao[player.cartasMao.length - 1];
@@ -120,6 +114,15 @@ botaoComprar.addEventListener("click", () => {
 
   cartaFundo.append(cartaRank, cartaRankInvertido);
   cartaContainer.append(cartaFundo);
+};
 
+//        DOM       //
+const botaoComprar = document.querySelector(".btn-buyCard");
+
+const ladoJogador = document.querySelector(".player-side");
+const cartaContainer = document.querySelector(".cards-container");
+
+botaoComprar.addEventListener("click", () => {
+  mostrarCartasJogador();
   atualizarDisplay(player);
 });
