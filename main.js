@@ -1,5 +1,5 @@
 // const valorCartas = ["A", "A", "A", 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
-const valorCartas = ["A", "A", "A", 4, 5, 6, 7, 8, 9, 10];
+const valorCartas = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
 const naipeCartas = ["♦️", "♠️", "♥️", "♣️"];
 
 const deckCartas = [];
@@ -86,10 +86,12 @@ const atualizarDisplay = (jogador) => {
   mostrarPontosJogador.textContent = jogador.pontos();
 };
 
-const mostrarCartasJogador = () => {
-  player.addCarta();
+const mostrarCartasJogador = (jogador) => {
+  
+  const cartaContainer = document.querySelector((jogador === player) ? ".player-side>.cards-container" : ".cards-container");
 
-  let ultimaCartaComprada = player.cartasMao[player.cartasMao.length - 1];
+
+  let ultimaCartaComprada = jogador.cartasMao[jogador.cartasMao.length - 1];
   console.log(ultimaCartaComprada.valor);
 
   const checarNaipe =
@@ -116,13 +118,26 @@ const mostrarCartasJogador = () => {
   cartaContainer.append(cartaFundo);
 };
 
+function rodadaJogo() {
+  //Comprar duas cartas para o Crupiê e para o Jogador
+  //A segunda carta comprada pelo Crupiê deverá ser virada para baixa
+  //O jogador tem a opção de comprar cartas até se sentir satisfeito com a pontuação ou até ultrapassar os 21 pontos.
+  //Após o jogador escolher encerrar, o crupiê irá comprar até superar a pontuação do jogador ou até ultrapassar os 21 pontos
+}
+
 //        DOM       //
 const botaoComprar = document.querySelector(".btn-buyCard");
 
 const ladoJogador = document.querySelector(".player-side");
-const cartaContainer = document.querySelector(".cards-container");
+const ladoMesa = document.querySelector(".dealer-side");
 
 botaoComprar.addEventListener("click", () => {
-  mostrarCartasJogador();
+  player.addCarta();
+  mostrarCartasJogador(player);
   atualizarDisplay(player);
 });
+
+crupie.addCarta();
+mostrarCartasJogador(crupie);
+crupie.addCarta();
+mostrarCartasJogador(crupie);
