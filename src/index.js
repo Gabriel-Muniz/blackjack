@@ -1,4 +1,4 @@
 import "./styles.css";
-import {test} from "./test";
+import {createDeck} from "./deckManager.js";
 
-console.log(test);
+console.log(createDeck);
