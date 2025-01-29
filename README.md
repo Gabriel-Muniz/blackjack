@@ -1,0 +1,2 @@
+# blackjack
+Blackjack personal project
